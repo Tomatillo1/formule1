@@ -1,0 +1,11 @@
+body {
+    background-color: black;
+    margin: 0;
+    height: 100svh;
+}
+
+#app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
