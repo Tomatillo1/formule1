@@ -57,6 +57,8 @@
                         min: Number(fullTimeSprintOr3[1]),
                     }
                 } else {
+                    trial2 = 'Essai libre 2'
+                    trial3 = 'Essai libre 3'
                     fullDateSprintOr3 = race.ThirdPractice.date.split('-')
                     fullTimeSprintOr3 = race.ThirdPractice.time.split(':')
                     dateSprintOr3 = {
@@ -121,7 +123,6 @@
         newSecondTime = newSecond.toFormat("T")
         newSprintOr3Time = newSprintOr3.toFormat("T")
     }
-
 
 </script>
 
