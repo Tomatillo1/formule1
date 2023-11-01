@@ -83,9 +83,6 @@
 
 
 <style>
-    p {
-        color: white;
-    }
     table {
         width: 60%;
         margin-top: 4rem;
