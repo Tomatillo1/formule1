@@ -1,25 +1,22 @@
 <script>
-    export let newTab;
-
+    export let tabOfConstructors;
 </script>
 
 <table>
     <tr>
         <th>Position</th>
-        <th>Nom</th>
         <th>Écurie</th>
         <th>Nationalité</th>
         <th>Victoires</th>
         <th>Points</th>
     </tr>
-    {#each newTab as {positionNumber, fullname, constructorDriver, nationalityCountry, winsNumber, pointsNumber}}
+    {#each tabOfConstructors as {positionConstructor, constructorName, constructorCountry, winsNum, pointsNum}}
         <tr>
-            <td>{positionNumber}</td>
-            <td>{fullname}</td>
-            <td>{constructorDriver}</td>
-            <td>{nationalityCountry}</td>
-            <td>{winsNumber}</td>
-            <td>{pointsNumber}</td>
+            <td>{positionConstructor}</td>
+            <td>{constructorName}</td>
+            <td>{constructorCountry}</td>
+            <td>{winsNum}</td>
+            <td>{pointsNum}</td>
         </tr>
     {/each}
 </table>
