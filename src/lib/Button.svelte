@@ -16,4 +16,18 @@
         align-self: center;
         width: 20%;
     }
+
+    @media screen and (max-width: 767px) {
+        .menuButton {
+            width: 50%;
+            font-size: 1.25rem;
+        }
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        .menuButton {
+            width: 60%;
+            font-size: 2.5rem;
+        }
+    }
 </style>

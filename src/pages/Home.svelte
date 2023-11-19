@@ -3,18 +3,23 @@
 
     const navigate = useNavigate()
     import Button from '../lib/Button.svelte'
+
     function page1() {
         navigate('/nextgp')
     }
+
     function page2() {
         navigate('/grid')
     }
+
     function page3() {
         navigate('/calendar')
     }
+
     function page4() {
         navigate('/results')
     }
+
     function page5() {
         navigate('/ranking')
     }
@@ -49,5 +54,11 @@
         gap: 1rem;
         height: 100%;
         justify-content: center;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        h1 {
+            font-size: 4rem;
+        }
     }
 </style>
