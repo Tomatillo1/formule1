@@ -16,4 +16,18 @@
         font-family: "Poppins", sans-serif;
         width: 18%;
     }
+
+    @media screen and (max-width: 767px) {
+        .buttonsRanking {
+            font-size: 1rem;
+            width: 35%;
+        }
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        .buttonsRanking {
+            font-size: 2rem;
+            width: 35%;
+        }
+    }
 </style>

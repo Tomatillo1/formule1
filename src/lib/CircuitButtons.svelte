@@ -51,4 +51,13 @@
         font-size: 1rem;
         padding-left: 0.5rem;
     }
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        label {
+            font-size: 2rem;
+        }
+        #chooseRace {
+            font-size: 1.5rem;
+        }
+    }
 </style>

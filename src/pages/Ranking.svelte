@@ -101,6 +101,28 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 100%;
+    }
+
+    @media screen and (max-width: 767px) {
+        .theTab {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            overflow: auto;
+            margin: 1.5rem;
+        }
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        h1 {
+            font-size: 4rem;
+        }
+        .theTab {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            overflow: auto;
+            margin: 2rem;
+        }
     }
 </style>

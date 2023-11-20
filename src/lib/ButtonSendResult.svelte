@@ -119,4 +119,37 @@
         flex-direction: column;
         align-items: center;
     }
+
+    @media screen and (max-width: 767px) {
+        .tabCenter {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            overflow: auto;
+            margin-top: 1rem;
+        }
+        .menuBar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+       .tabCenter {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            overflow: auto;
+            margin: 2rem;
+        }
+        .menuBar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .send {
+            font-size: 1.5rem;
+        }
+    }
 </style>

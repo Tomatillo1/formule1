@@ -130,6 +130,8 @@
 <div class="GP">
     <h2>{nextGP.gpName}</h2>
     <h3>{nextGP.circuitName}</h3>
+</div>
+<div class="gpTab">
     <TabNextGP {trial2} {trial3} {newCourseDate} {newCourseTime} {newQualifyingDate} {newQualifyingTime} {newFirstDate}
                {newFirstTime} {newSecondDate} {newSecondTime} {newSprintOr3Date} {newSprintOr3Time}/>
 </div>
@@ -161,8 +163,44 @@
     .GP {
         display: flex;
         flex-direction: column;
-        height: 100%;
         align-items: center;
+    }
+
+    .gpTab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+    }
+
+
+    @media screen and (max-width: 767px) {
+        h2 {
+            font-size: 1.5rem;
+        }
+        h3 {
+            font-size: 1rem;
+        }
+        .gpTab {
+            justify-content: center;
+            padding-bottom: 2rem;
+        }
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        h1 {
+            font-size: 4rem;
+        }
+        h2 {
+            font-size: 3rem;
+        }
+        h3 {
+            font-size: 2.5rem;
+        }
+        .gpTab {
+            justify-content: center;
+            padding-bottom: 2rem;
+        }
     }
 </style>
 

@@ -126,4 +126,27 @@
         flex-direction: column;
         align-items: start;
     }
+
+    @media screen and (max-width: 767px) {
+        .centerTab {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            overflow: auto;
+            margin: 1.5rem;
+        }
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        h1 {
+            font-size: 4rem;
+        }
+        .centerTab {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            overflow: auto;
+            margin: 2rem;
+        }
+    }
 </style>

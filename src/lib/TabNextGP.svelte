@@ -103,4 +103,22 @@
     th {
         font-weight: 600;
     }
+
+    @media screen and (max-width: 767px) {
+        table {
+            width: 85%;
+            margin-top: 1rem;
+        }
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        table {
+            width: 90%;
+            font-size: 4rem;
+            margin-top: 1rem;
+        }
+        tr {
+            font-size: 2.75rem;
+        }
+    }
 </style>

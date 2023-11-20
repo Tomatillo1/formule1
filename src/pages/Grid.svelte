@@ -69,8 +69,11 @@
     <h2>{lastGrid.nameOfGP}</h2>
     <h3>{lastGrid.nameOfCircuit}</h3>
     <h3>{newDate}</h3>
+</div>
+<div class="gridTab">
     <GridTab {tabGrid}/>
 </div>
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
@@ -94,9 +97,49 @@
         font-style: italic;
     }
 
-    .gridDiv {
+    .gridDiv, .gridTab {
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    @media screen and (max-width: 767px) {
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1rem;
+        }
+
+        .gridTab {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            overflow: auto;
+            margin: 1.5rem;
+        }
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        h1 {
+            font-size: 4rem;
+        }
+
+        h2 {
+            font-size: 3rem;
+        }
+
+        h3 {
+            font-size: 2.5rem;
+        }
+
+        .gridTab {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            overflow: auto;
+            margin: 2rem;
+        }
     }
 </style>

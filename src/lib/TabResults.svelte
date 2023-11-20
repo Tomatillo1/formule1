@@ -77,7 +77,7 @@
 
 <style>
     table {
-        width: 90%;
+        width: 120%;
         margin: 3rem 0 4rem 0;
         border-collapse: collapse;
     }
@@ -95,5 +95,25 @@
 
     th {
         font-weight: 600;
+    }
+
+    @media screen and (max-width: 767px) {
+        table {
+            width: 160%;
+            margin: 0;
+        }
+        tr {
+            font-size: 1rem;
+        }
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        table {
+            width: 160%;
+            margin: 0;
+        }
+        tr {
+            font-size: 2rem;
+        }
     }
 </style>
