@@ -2,65 +2,91 @@
     export let tabOfConstructors;
 </script>
 
-<table>
-    <tr>
-        <th>Position</th>
-        <th>Écurie</th>
-        <th>Nationalité</th>
-        <th>Victoires</th>
-        <th>Points</th>
-    </tr>
-    {#each tabOfConstructors as {positionConstructor, constructorName, constructorCountry, winsNum, pointsNum}}
-        <tr>
-            <td>{positionConstructor}</td>
-            <td>{constructorName}</td>
-            <td>{constructorCountry}</td>
-            <td>{winsNum}</td>
-            <td>{pointsNum}</td>
-        </tr>
+<div class="allConstructors">
+    {#each tabOfConstructors as {positionConstructor, constructorName, constructorName2, pointsNum, colorConstructor}}
+        <div class="eachConstructors">
+            <p class="position">{positionConstructor}</p>
+            <div style="background: {colorConstructor};" class="whoConstructor">
+                <img class="constructorDriver" src="/dist/constructor/{constructorName}.png">
+                <p class="constructorName">{constructorName2}</p>
+                <img class="constructorCar" src="/dist/cars/{constructorName}.jpg">
+            </div>
+            <p class="points">{pointsNum}</p>
+        </div>
     {/each}
-</table>
+</div>
 
 
 <style>
-    table {
-        width: 90%;
-        margin: 4rem 0 4rem 0;
-        border-collapse: collapse;
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+    .allConstructors {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 1.5rem;
     }
 
-    th, td {
-        border: 2px solid white;
+    .eachConstructors {
+        display: flex;
+        flex-direction: row;
+        width: 60%;
+        text-align: start;
+        font-size: 2rem;
+        font-family: "Poppins", sans-serif;
+        gap: 1rem;
     }
 
-    tr {
+    .position, .points {
+        background: white;
+        border-radius: 5px;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .points {
+        width: 20%;
+    }
+
+    .position {
+        width: 10%;
+    }
+
+    .whoConstructor {
+        width: 70%;
+        background: white;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 1.75rem;
+        gap: 1rem;
+        padding: 0.25rem 0;
+    }
+
+    .constructorName {
+        margin: 0;
+        flex-grow: 1;
         color: white;
         text-align: center;
-        font-family: "Poppins", sans-serif;
-        font-size: 1.5rem;
     }
 
-    th {
-        font-weight: 600;
+    .constructorDriver {
+        width: 50px;
+        height: 50px;
+        margin: 0;
+        border-radius: 5px 0 0 5px;
+        padding-left: 0.5rem;
     }
 
-    @media screen and (max-width: 767px) {
-        table {
-            width: 160%;
-            margin: 0;
-        }
-        tr {
-            font-size: 1rem;
-        }
+    .constructorCar {
+        width: 250px;
+        height: 50px;
+        border-radius: 0 5px 5px 0;
+        padding-right: 1rem;
     }
 
-    @media screen and (min-width: 768px) and (max-width: 1024px) {
-        table {
-            width: 170%;
-            margin: 0;
-        }
-        tr {
-            font-size: 2rem;
-        }
-    }
 </style>

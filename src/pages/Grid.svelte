@@ -4,83 +4,72 @@
     import {DateTime} from "luxon";
 
     let lastGrid = {};
-    let gridDateOrTime = {};
-    let newDate;
-    let tabGrid = [];
+    let leftColumn= [];
+    let rightColumn= [];
+
+    let tabOfColors = [
+        {name: 'red_bull', color:'#1c1e82' },
+        {name: 'ferrari', color: '#FE0000' },
+        {name: 'mercedes', color: '#00A09C' },
+        {name: 'mclaren', color: '#FF7701' },
+        {name: 'aston_martin', color: '#00594F' },
+        {name: 'haas', color: '#000000' },
+        {name: 'williams', color: '#272850' },
+        {name: 'sauber', color: '#1DFC83' },
+        {name: 'alpine', color: '#FA6DA8' },
+        {name: 'rb', color: '#1534cc' }
+    ]
 
     onMount(() => {
         grid()
     })
 
     function grid() {
-        tabGrid = []
+        leftColumn = []
+        rightColumn = []
         fetch('https://ergast.com/api/f1/current/last/qualifying.json')
             .then(response => {
                 return response.json();
             })
             .then(data => {
                 const gridValue = data.MRData.RaceTable.Races[0]
-                const dateGrid = gridValue.date.split('-')
-                const timeGrid = gridValue.time.split(':')
-                gridDateOrTime = {
-                    year: Number(dateGrid[0]),
-                    month: Number(dateGrid[1]),
-                    day: Number(dateGrid[2]),
-                    hour: Number(timeGrid[0]),
-                    min: Number(timeGrid[1])
-                }
-                lastGrid = {
-                    nameOfGP: gridValue.raceName,
-                    nameOfCircuit: gridValue.Circuit.circuitName,
-                }
-                gridValue.QualifyingResults.forEach((gridElement) => {
+                lastGrid = gridValue.raceName
+                gridValue.QualifyingResults.forEach((gridElement, index) => {
+                    const takeColor = tabOfColors.find(({name}) => name === gridElement.Constructor.constructorId)
                     let driverList = {
                         positionNumber: gridElement.position,
                         fullName: gridElement.Driver.givenName + " " + gridElement.Driver.familyName,
-                        constructorName: gridElement.Constructor.name,
-                        country: gridElement.Driver.nationality,
-                        QOne: gridElement.Q1,
-                        QTwo: gridElement.Q2,
-                        QThree: gridElement.Q3
+                        constructorName: gridElement.Constructor.constructorId,
+                        colorConstructor: takeColor.color,
+                        nameDriver: gridElement.Driver.givenName
                     }
-                    if (driverList.QThree === undefined) {
-                        driverList.QThree = '/'
-                    }
-                    if (driverList.QTwo === undefined) {
-                        driverList.QTwo = '/'
-                    }
-                    if (driverList.QOne === "") {
-                        driverList.QOne = '/'
-                    }
-                    tabGrid = [...tabGrid, driverList]
+
+                    if (index % 2 === 0) leftColumn.push(driverList)
+                    else rightColumn.push(driverList)
                 })
-                dateAndHour()
+
+                leftColumn = [...leftColumn]
+                rightColumn = [...rightColumn]
+                console.log(leftColumn)
             })
     }
 
-    function dateAndHour() {
-        const newTimeGrid = DateTime.local(gridDateOrTime.year, gridDateOrTime.month, gridDateOrTime.day, gridDateOrTime.hour, gridDateOrTime.min).plus({hours: 1})
-        newDate = newTimeGrid.toFormat('T') + " - " + newTimeGrid.setLocale('fr').toFormat("dd LLL yyyy")
-    }
 </script>
-
-<h1>Formule 1</h1>
-<div class="gridDiv">
-    <h2>{lastGrid.nameOfGP}</h2>
-    <h3>{lastGrid.nameOfCircuit}</h3>
-    <h3>{newDate}</h3>
-</div>
-<div class="gridTab">
-    <GridTab {tabGrid}/>
+<div class="backgroundGrid">
+    <div class="gridFilterBlack">
+        <h1>La grille de départ</h1>
+        <h2>{lastGrid}</h2>
+        <GridTab {leftColumn} {rightColumn}/>
+    </div>
 </div>
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-    h1, h2, h3 {
+    h1, h2 {
         color: white;
         text-align: center;
-        margin-bottom: 0;
+        margin: 0;
         font-family: "Poppins", sans-serif;
         font-size: 2.5rem;
         outline: none;
@@ -88,58 +77,20 @@
 
     h2 {
         margin-top: 1rem;
-        font-size: 3rem;
-    }
-
-    h3 {
-        margin: 0;
         font-size: 1.5rem;
         font-style: italic;
     }
 
-    .gridDiv, .gridTab {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    h1 {
+        padding-top: 2rem;
     }
 
-    @media screen and (max-width: 767px) {
-        h2 {
-            font-size: 1.5rem;
-        }
-
-        h3 {
-            font-size: 1rem;
-        }
-
-        .gridTab {
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-            overflow: auto;
-            margin: 1.5rem;
-        }
+    .backgroundGrid {
+        background-image: url("/dist/background-grid.jpg");
+        background-position-y: bottom;
     }
 
-    @media screen and (min-width: 768px) and (max-width: 1024px) {
-        h1 {
-            font-size: 4rem;
-        }
-
-        h2 {
-            font-size: 3rem;
-        }
-
-        h3 {
-            font-size: 2.5rem;
-        }
-
-        .gridTab {
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-            overflow: auto;
-            margin: 2rem;
-        }
+    .gridFilterBlack {
+        background-color: rgba(0,0,0,0.6);
     }
 </style>

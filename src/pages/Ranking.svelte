@@ -10,6 +10,19 @@
     let newTab = [];
     let tabOfConstructors = [];
 
+    let tabOfColors = [
+        {name: 'red_bull', color:'#1c1e82' },
+        {name: 'ferrari', color: '#FE0000' },
+        {name: 'mercedes', color: '#00A09C' },
+        {name: 'mclaren', color: '#FF7701' },
+        {name: 'aston_martin', color: '#00594F' },
+        {name: 'haas', color: '#000000' },
+        {name: 'williams', color: '#272850' },
+        {name: 'sauber', color: '#1DFC83' },
+        {name: 'alpine', color: '#FA6DA8' },
+        {name: 'rb', color: '#1534cc' }
+    ]
+
     onMount(() => {
         pilote()
     })
@@ -26,13 +39,14 @@
             .then(data => {
                 const driver = data.MRData.StandingsTable.StandingsLists[0].DriverStandings
                 driver.forEach((driverElement) => {
+                    const takeColor = tabOfColors.find(({name}) => name === driverElement.Constructors[0].constructorId)
                     let newObjectDriver = {
                         positionNumber: driverElement.position,
                         fullname: driverElement.Driver.givenName + " " + driverElement.Driver.familyName,
-                        constructorDriver: driverElement.Constructors[0].name,
-                        nationalityCountry: driverElement.Driver.nationality,
-                        winsNumber: driverElement.wins,
-                        pointsNumber: driverElement.points
+                        constructorDriver: driverElement.Constructors[0].constructorId,
+                        pointsNumber: driverElement.points,
+                        nameDriver: driverElement.Driver.givenName,
+                        colorConstructor: takeColor.color
                     }
                     newTab = [...newTab, newObjectDriver]
                 })
@@ -51,12 +65,13 @@
             .then(data => {
                 const constructor = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
                 constructor.forEach((constructorElement) => {
+                    const takeColorConst = tabOfColors.find(({name}) => name === constructorElement.Constructor.constructorId,)
                     let newObjectConstructor = {
                         positionConstructor: constructorElement.position,
-                        constructorName: constructorElement.Constructor.name,
-                        constructorCountry: constructorElement.Constructor.nationality,
-                        winsNum: constructorElement.wins,
-                        pointsNum: constructorElement.points
+                        constructorName: constructorElement.Constructor.constructorId,
+                        constructorName2: constructorElement.Constructor.name,
+                        pointsNum: constructorElement.points,
+                        colorConstructor: takeColorConst.color
                     }
                     tabOfConstructors = [...tabOfConstructors, newObjectConstructor]
                 })
@@ -64,29 +79,34 @@
     }
 
 </script>
+<div class="backgroundStanding">
+    <div class="standingFilterBlack">
+        <h1>Classement</h1>
+        <div class="bothButtons">
+            <ButtonRanking name="Pilotes" whatAction={pilote} colorBorder={color1}/>
+            <ButtonRanking name="Constructeurs" whatAction={constructeur} colorBorder={color2}/>
+        </div>
+        <div class="theTab">
+            {#if bool === true}
+                <DriverTab {newTab}/>
+            {:else}
+                <ConstructorTab {tabOfConstructors}/>
+            {/if}
+        </div>
+    </div>
+</div>
 
-<h1>Formule 1</h1>
-<div class="bothButtons">
-    <ButtonRanking name="Pilotes" whatAction={pilote} colorBorder={color1}/>
-    <ButtonRanking name="Constructeurs" whatAction={constructeur} colorBorder={color2}/>
-</div>
-<div class="theTab">
-    {#if bool === true}
-        <DriverTab {newTab}/>
-    {:else}
-        <ConstructorTab {tabOfConstructors}/>
-    {/if}
-</div>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
     h1 {
         color: white;
         text-align: center;
-        margin-bottom: 0;
+        margin: 0;
         font-family: "Poppins", sans-serif;
         font-size: 2.5rem;
         outline: none;
+        padding-top: 1rem ;
     }
 
     .bothButtons {
@@ -101,28 +121,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 2rem 0;
     }
 
-    @media screen and (max-width: 767px) {
-        .theTab {
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-            overflow: auto;
-            margin: 1.5rem;
-        }
+    .backgroundStanding {
+        background-image: url("/dist/background-standing.jpg");
+        background-position-y: bottom;
     }
 
-    @media screen and (min-width: 768px) and (max-width: 1024px) {
-        h1 {
-            font-size: 4rem;
-        }
-        .theTab {
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-            overflow: auto;
-            margin: 2rem;
-        }
+    .standingFilterBlack {
+        background-color: rgba(0,0,0,0.6);
     }
+
 </style>

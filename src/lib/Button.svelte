@@ -7,7 +7,7 @@
 
 <style>
     .menuButton {
-        background: black;
+        background: transparent;
         border: 1px solid white;
         color: white;
         font-size: 1.5rem;

@@ -1,70 +1,103 @@
 <script>
-    export let tabGrid;
+    export let leftColumn;
+    export let rightColumn;
+
 </script>
-
-<table>
-    <tr>
-        <th>Position</th>
-        <th>Nom</th>
-        <th>Écurie</th>
-        <th>Nationalité</th>
-        <th>Q1</th>
-        <th>Q2</th>
-        <th>Q3</th>
-    </tr>
-    {#each tabGrid as {positionNumber, fullName, constructorName, country, QOne, QTwo, QThree}}
-        <tr>
-            <td>{positionNumber}</td>
-            <td>{fullName}</td>
-            <td>{constructorName}</td>
-            <td>{country}</td>
-            <td>{QOne}</td>
-            <td>{QTwo}</td>
-            <td>{QThree}</td>
-        </tr>
-    {/each}
-</table>
-
+<div class="bothColumn">
+    <div class="leftColumn">
+        {#each leftColumn as {positionNumber, fullName, constructorName, colorConstructor, nameDriver}}
+            <div class="eachPilote">
+                <p class="position">P{positionNumber}</p>
+                <div class="allInfos">
+                    <img style="background-color: {colorConstructor}" class="constructorDriver" src="/dist/constructor/{constructorName}.png">
+                    <p style="background-color: {colorConstructor}" class="namePilote">{fullName}</p>
+                    <img style="background-color: {colorConstructor}" class="headDriver" src="/dist/pilotes/{nameDriver}.png">
+                </div>
+            </div>
+        {/each}
+    </div>
+    <div class="rightColumn">
+        {#each rightColumn as {positionNumber, fullName, constructorName, colorConstructor, nameDriver}}
+            <div class="eachPilote">
+                <p class="position">P{positionNumber}</p>
+                <div class="allInfos">
+                    <img style="background-color: {colorConstructor}" class="constructorDriver" src="/dist/constructor/{constructorName}.png">
+                    <p style="background-color: {colorConstructor}" class="namePilote">{fullName}</p>
+                    <img style="background-color: {colorConstructor}" class="headDriver" src="/dist/pilotes/{nameDriver}.png">
+                </div>
+            </div>
+        {/each}
+    </div>
+</div>
 
 <style>
-    table {
-        width: 90%;
-        margin: 3rem 0 4rem 0;
-        border-collapse: collapse;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-    th, td {
-        border: 2px solid white;
-    }
+.bothColumn {
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+    justify-content: center;
+    padding: 2rem 0;
+    gap: 3rem;
+}
 
-    tr {
-        color: white;
-        text-align: center;
-        font-family: "Poppins", sans-serif;
-        font-size: 1.5rem;
-    }
+.rightColumn, .leftColumn {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 1.5rem;
+}
 
-    th {
-        font-weight: 600;
-    }
+.leftColumn {
+    align-items: end;
+}
 
-    @media screen and (max-width: 767px) {
-        table {
-            width: 150%;
-            margin: 0;
-        }
-        tr {
-            font-size: 1rem;
-        }
-    }
+.rightColumn {
+    align-items: start;
+    margin-top: 3rem;
+}
 
-    @media screen and (min-width: 768px) and (max-width: 1024px) {
-        table {
-            width: 150%;
-            margin: 0;
-        }
-        tr {
-            font-size: 2rem;
-        }
-    }
+.eachPilote {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    gap: 0.5rem;
+}
+
+.position {
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+}
+
+.allInfos {
+    display: flex;
+    flex-direction: row;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    gap: 0.5rem;
+    padding: 0.5rem 0 0 0.5rem;
+}
+
+.namePilote {
+    display: flex;
+    background-color: white;
+    font-family: "Poppins", sans-serif;
+    color: white;
+    flex-grow: 1;
+    padding-left: 1rem;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.constructorDriver, .headDriver {
+    width: 30px;
+    height: 30px;
+}
+
+p {
+    margin: 0;
+}
+
 </style>

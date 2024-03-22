@@ -25,40 +25,51 @@
     }
 
 </script>
-
-<h1>Formule 1</h1>
-<div class="menu">
-    <Button whatName="Prochain GP" whatPage={page1}/>
-    <Button whatName="La grille" whatPage={page2}/>
-    <Button whatName="Calendrier" whatPage={page3}/>
-    <Button whatName="Résultats" whatPage={page4}/>
-    <Button whatName="Classements" whatPage={page5}/>
+<div class="backgroundHome">
+    <div class="homeFilterBlack">
+        <div class="imageLogo">
+            <img class="logoMainPage" src="/dist/logo-formule-1.png" alt="">
+        </div>
+        <div class="menu">
+            <Button whatName="Prochain GP" whatPage={page1}/>
+            <Button whatName="La grille" whatPage={page2}/>
+            <Button whatName="Calendrier" whatPage={page3}/>
+            <Button whatName="Résultats" whatPage={page4}/>
+            <Button whatName="Classements" whatPage={page5}/>
+        </div>
+    </div>
 </div>
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-    h1 {
-        color: white;
-        text-align: center;
-        margin-bottom: 0;
-        font-family: "Poppins", sans-serif;
-        font-size: 2.5rem;
-        outline: none;
-    }
-
+    
     .menu {
         display: flex;
         flex-direction: column;
         width: 100%;
-        gap: 1rem;
-        height: 100%;
-        justify-content: center;
+        gap: 2rem;
+        flex-grow: 1;
     }
 
-    @media screen and (min-width: 768px) and (max-width: 1024px) {
-        h1 {
-            font-size: 4rem;
-        }
+    .logoMainPage {
+        height: 125px;
+        width: 400px;
+    }
+
+    .imageLogo {
+        display: flex;
+        justify-content: center;
+        padding: 2rem 0 3rem 0;
+    }
+
+    .backgroundHome {
+        background-image: url("/dist/fond-ecran-accueil.jpg");
+        background-position-y: bottom;
+        height: 100%;
+    }
+
+    .homeFilterBlack {
+        background-color: rgba(0,0,0,0.6);
+        height: 100%;
     }
 </style>

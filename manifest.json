@@ -1,0 +1,21 @@
+{
+  "name": "Formule 1",
+  "short_name": "Formule 1",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "white",
+  "theme_color": "black",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/public/favicon-f1-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/splash_screens/icon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
