@@ -3,104 +3,122 @@
 
 </script>
 
-<table>
-    {#each calendarTab as {
-        nameGP,
-        circuitName,
-        nationality,
-        fullDateFirst,
-        fullDateRace,
-        fullDate2OrS,
-        fullDateQual,
-        fullDate3OrSprint,
-        sprintOrNot
-    }}
-        {#if (sprintOrNot === 'sprint')}
-            <tr class="spaceTab">
-                <th>Nom du GP</th>
-                <th>Circuit</th>
-                <th>Pays</th>
-                <th>Essai libre 1</th>
-                <th>Qualification</th>
-                <th>Shootout</th>
-                <th>Sprint</th>
-                <th>Course</th>
-            </tr>
-            <tr>
-                <td>{nameGP}</td>
-                <td>{circuitName}</td>
-                <td>{nationality}</td>
-                <td>{fullDateFirst}</td>
-                <td>{fullDateQual}</td>
-                <td>{fullDate2OrS}</td>
-                <td>{fullDate3OrSprint}</td>
-                <td>{fullDateRace}</td>
-            </tr>
-        {:else }
-            <tr class="spaceTab">
-                <th>Nom du GP</th>
-                <th>Circuit</th>
-                <th>Pays</th>
-                <th>Essai libre 1</th>
-                <th>Essai libre 2</th>
-                <th>Essai libre 3</th>
-                <th>Qualification</th>
-                <th>Course</th>
-            </tr>
-            <tr>
-                <td>{nameGP}</td>
-                <td>{circuitName}</td>
-                <td>{nationality}</td>
-                <td>{fullDateFirst}</td>
-                <td>{fullDate2OrS}</td>
-                <td>{fullDate3OrSprint}</td>
-                <td>{fullDateQual}</td>
-                <td>{fullDateRace}</td>
-            </tr>
-        {/if}
+<div class="allDates">
+    {#each calendarTab as {city, nationality, fullDate, raceHour, round, circuitId}}
+        <div class="eachGP">
+            <div class="round">
+                <p class="whatRound">R{round}</p>
+            </div>
+            <div class="infosOfGP">
+                <img class="flag" src="/dist/flags/{circuitId}.jpg">
+                <div class="allDataGP">
+                    <p class="dateWeekGP">{fullDate}</p>
+                    <p class="nationality">{nationality}</p>
+                    <p class="city">{city}</p>
+                </div>
+                <div class="hourGP">
+                    <p class="GP">Heure du GP</p>
+                    <p class="raceHour">{raceHour}</p>
+                </div>
+                <img class="circuit" src="/dist/circuits/{circuitId}.png">
+            </div>
+        </div>
     {/each}
-
-</table>
+</div>
 
 <style>
-    table {
-        width: 150%;
-        margin: 3rem 0 4rem 3rem;
-        border-collapse: collapse;
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+    .allDates {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+        gap: 2rem;
+        padding: 3rem 0 2rem 0;
     }
 
-    th, td {
-        border: 2px solid white;
+    .eachGP {
+        display: flex;
+        flex-direction: row;
+        width: 45%;
     }
 
-    tr {
+    .round {
+        display: flex;
+        width: 100px;
+        background: #C61910;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        border-radius: 10px 0 0 10px;
+    }
+
+    .whatRound {
         color: white;
-        text-align: center;
+        font-weight: bold;
         font-family: "Poppins", sans-serif;
-        font-size: 1.5rem;
+        margin: 0;
     }
 
-    th {
-        font-weight: 600;
+    .infosOfGP {
+        display: flex;
+        flex-direction: row;
+        background: white;
+        flex-grow: 1;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem 0;
+        border-radius: 0 10px 10px 0;
     }
 
-    @media screen and (max-width: 767px) {
-        table {
-            width: 300%;
-            margin: 0;
-        }
-        tr {
-            font-size: 1rem;
-        }
+    .flag {
+        margin: 0 0 0 1rem;
+        width: 100px;
+        height: 60px;
+        border: 1px solid black;
     }
 
-    @media screen and (min-width: 768px) and (max-width: 1024px) {
-        table {
-            width: 300%;
-            margin: 0;
-        }
-        tr {
-            font-size: 2rem;
-        }
+    .circuit {
+        margin: 0 1rem 0 0;
+        width: 100px;
+        height: 60px;
+    }
+
+    .allDataGP {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        border-right: 1px solid #C61910;
+
+    }
+
+    .hourGP {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .dateWeekGP, .nationality, .city, .raceHour, .GP {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        text-transform: uppercase;
+    }
+
+    .nationality {
+        color: #C61910;
+        font-weight: bold;
+        font-size: 1.25rem;
+    }
+
+    .dateWeekGP, .raceHour {
+        font-size: 0.75rem;
+        font-style: italic;
+    }
+
+    .city, .GP {
+        font-weight: bold;
+        font-size: 1rem;
     }
 </style>

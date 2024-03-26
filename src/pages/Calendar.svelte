@@ -17,17 +17,14 @@
             })
             .then(data => {
                 const calendarData = data.MRData.RaceTable.Races
-                calendarData.forEach((calendarElement) => {
+                calendarData.forEach((calendarElement, index) => {
                         let calendarObject = {
-                            nameGP: calendarElement.raceName,
-                            circuitName: calendarElement.Circuit.circuitName,
+                            city: calendarElement.Circuit.Location.locality,
                             nationality: calendarElement.Circuit.Location.country,
-                            fullDateFirst: '',
-                            fullDateRace: '',
-                            fullDate2OrS: '',
-                            fullDateQual: '',
-                            fullDate3OrSprint: '',
-                            sprintOrNot: ''
+                            circuitId: calendarElement.Circuit.circuitId,
+                            fullDate: '',
+                            raceHour: '',
+                            round: index + 1,
                         }
                         const dateRace = calendarElement.date.split('-')
                         const timeRace = calendarElement.time.split(':')
@@ -39,65 +36,16 @@
                             min: Number(timeRace[1])
                         }
                         const dateFirst = calendarElement.FirstPractice.date.split('-')
-                        const timeFirst = calendarElement.FirstPractice.time.split(':')
                         let fullDateFirst = {
                             year: Number(dateFirst[0]),
                             month: Number(dateFirst[1]),
-                            day: Number(dateFirst[2]),
-                            hour: Number(timeFirst[0]),
-                            min: Number(timeFirst[1])
+                            day: Number(dateFirst[2])
                         }
-                        const dateSecond = calendarElement.SecondPractice.date.split('-')
-                        const timeSecond = calendarElement.SecondPractice.time.split(':')
-                        let fullDateSecond = {
-                            year: Number(dateSecond[0]),
-                            month: Number(dateSecond[1]),
-                            day: Number(dateSecond[2]),
-                            hour: Number(timeSecond[0]),
-                            min: Number(timeSecond[1])
-                        }
-                        const dateQual = calendarElement.Qualifying.date.split('-')
-                        const timeQual = calendarElement.Qualifying.time.split(':')
-                        let fullDateQual = {
-                            year: Number(dateQual[0]),
-                            month: Number(dateQual[1]),
-                            day: Number(dateQual[2]),
-                            hour: Number(timeQual[0]),
-                            min: Number(timeQual[1])
-                        }
-                        let fullDate3orS;
-                        if (calendarElement.ThirdPractice === undefined) {
-                            const dateSprint = calendarElement.Sprint.date.split('-')
-                            const timeSprint = calendarElement.Sprint.time.split(':')
-                            calendarObject.sprintOrNot = 'sprint'
-                            fullDate3orS = {
-                                year: Number(dateSprint[0]),
-                                month: Number(dateSprint[1]),
-                                day: Number(dateSprint[2]),
-                                hour: Number(timeSprint[0]),
-                                min: Number(timeSprint[1])
-                            }
-                        } else {
-                            const dateThird = calendarElement.ThirdPractice.date.split('-')
-                            const timeThird = calendarElement.ThirdPractice.time.split(':')
-                            fullDate3orS = {
-                                year: Number(dateThird[0]),
-                                month: Number(dateThird[1]),
-                                day: Number(dateThird[2]),
-                                hour: Number(timeThird[0]),
-                                min: Number(timeThird[1])
-                            }
-                        }
-                        const newDateRace = DateTime.local(fullDateRace.year, fullDateRace.month, fullDateRace.day, fullDateRace.hour, fullDateRace.min).plus({hours: 1})
-                        calendarObject.fullDateRace = newDateRace.toFormat('T') + " - " + newDateRace.setLocale('fr').toFormat("dd LLL yyyy")
-                        const newDateFirst = DateTime.local(fullDateFirst.year, fullDateFirst.month, fullDateFirst.day, fullDateFirst.hour, fullDateFirst.min).plus({hours: 1})
-                        calendarObject.fullDateFirst = newDateFirst.toFormat('T') + " - " + newDateFirst.setLocale('fr').toFormat("dd LLL yyyy")
-                        const newDateSecond = DateTime.local(fullDateSecond.year, fullDateSecond.month, fullDateSecond.day, fullDateSecond.hour, fullDateSecond.min).plus({hours: 1})
-                        calendarObject.fullDate2OrS = newDateSecond.toFormat('T') + " - " + newDateSecond.setLocale('fr').toFormat("dd LLL yyyy")
-                        const newDateQual = DateTime.local(fullDateQual.year, fullDateQual.month, fullDateQual.day, fullDateQual.hour, fullDateQual.min).plus({hours: 1})
-                        calendarObject.fullDateQual = newDateQual.toFormat('T') + " - " + newDateQual.setLocale('fr').toFormat("dd LLL yyyy")
-                        const newDate3orS = DateTime.local(fullDate3orS.year, fullDate3orS.month, fullDate3orS.day, fullDate3orS.hour, fullDate3orS.min).plus({hours: 1})
-                        calendarObject.fullDate3OrSprint = newDate3orS.toFormat('T') + " - " + newDate3orS.setLocale('fr').toFormat("dd LLL yyyy")
+                        const newFirst = DateTime.local(fullDateFirst.year, fullDateFirst.month, fullDateFirst.day)
+                        const newRace = DateTime.local(fullDateRace.year, fullDateRace.month, fullDateRace.day)
+                        calendarObject.fullDate = newFirst.setLocale('fr').toFormat("dd LLL") + " - " + newRace.setLocale('fr').toFormat("dd LLL")
+                        const newRaceHour = DateTime.local(fullDateRace.year, fullDateRace.month, fullDateRace.day, fullDateRace.hour, fullDateRace.min).plus({hours: 1})
+                        calendarObject.raceHour = newRaceHour.toFormat('T')
                         calendarTab = [...calendarTab, calendarObject]
                     }
                 )
@@ -105,9 +53,11 @@
     }
 
 </script>
-<h1>Formule 1</h1>
-<div class="centerTab">
-    <CalendarTab {calendarTab}/>
+<div class="backgroundSchedule">
+    <div class="scheduleFilterBlack">
+        <h1>Calendrier 2024</h1>
+        <CalendarTab {calendarTab}/>
+    </div>
 </div>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
@@ -115,38 +65,19 @@
     h1 {
         color: white;
         text-align: center;
-        margin-bottom: 0;
+        margin: 0;
+        padding-top: 2rem;
         font-family: "Poppins", sans-serif;
         font-size: 2.5rem;
         outline: none;
     }
 
-    .centerTab {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
+    .backgroundSchedule {
+        background-image: url("/dist/backgrounnd-schedule.jpg");
+        background-position-y: bottom;
     }
 
-    @media screen and (max-width: 767px) {
-        .centerTab {
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-            overflow: auto;
-            margin: 1.5rem;
-        }
-    }
-
-    @media screen and (min-width: 768px) and (max-width: 1024px) {
-        h1 {
-            font-size: 4rem;
-        }
-        .centerTab {
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-            overflow: auto;
-            margin: 2rem;
-        }
+    .scheduleFilterBlack {
+        background-color: rgba(0,0,0,0.8);
     }
 </style>
